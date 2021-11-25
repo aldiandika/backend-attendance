@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\BaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::post('register', [ApiController::class, 'register']);
 Route::group(['middleware' => ['jwt.verify']], function(){
   Route::get('logout', [ApiController::class, 'logout']);
   Route::get('get-user', [ApiController::class, 'get_user']);
+  Route::get('user-info', [BaseController::class, 'user_info']);
 }
 
 );

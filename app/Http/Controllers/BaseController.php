@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\UserInfo;
-use App\Models\User;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,18 +15,29 @@ class BaseController extends Controller
     protected $user;
 
     public function __construct(){
-      $this->$user = JWTAuth::parseToken()->authenticate();
+      $this->user = JWTAuth::parseToken()->authenticate();
     }
 
 
-    // Index
-    public function user_info_index(){
+    // Get User Info
+    public function user_info(){
 
       // Check apakah role = admin
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
 
-      // Return semua user_info
+      // Return user info sesuai hirarki
+      if ($checkedUser->role == "admin"){
+        $response = UserInfo::all();
+      }else if ($checkedUser->role == "leader"){
+        $response = UserInfo::where('role', "staff")->where('jabatan_fungsional', $checkedUser->jabatan_fungsional)->get();
+      }else{
+        $response = $checkedUser;
+      }
 
-      // Return user_info dari user terkait
+      return response()->json([
+        'success' => true,
+        'message' => $response
+      ], Response::HTTP_OK);
     }
 
     // Input absen

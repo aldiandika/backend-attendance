@@ -124,7 +124,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'manager'
+            'role' => 'staff'
           ],
           [
             'nip' => '13010053',
