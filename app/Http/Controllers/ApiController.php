@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class ApiController extends Controller
 {
 
+  // Registrasi akun (diakses oleh admin)
   public function register(Request $request){
     // Validasi
     $data = $request->only('nip', 'nama_pegawai', 'password');
