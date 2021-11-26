@@ -24,6 +24,7 @@ class CreateUserInfoTable extends Migration
             $table->integer('jumlah_alpha');
             $table->integer('jumlah_hadir');
             $table->string('role');
+            $table->timestamps();
         });
     }
 

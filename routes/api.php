@@ -24,6 +24,7 @@ Route::group(['middleware' => ['jwt.verify']], function(){
   Route::get('get-user', [ApiController::class, 'get_user']);
   Route::get('user-info', [BaseController::class, 'user_info']);
   Route::get('attend', [BaseController::class, 'attendance']);
+  Route::get('attend-sum', [BaseController::class, 'attendSum']);
 }
 
 );

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 
 use App\Models\UserInfo;
+use Carbon\Carbon;
 
 class UserInfoSeeder extends Seeder
 {
@@ -15,6 +16,9 @@ class UserInfoSeeder extends Seeder
      */
     public function run()
     {
+        $dateNow = Carbon::now();
+        $dateNowArr = $dateNow->toArray();
+
         $userInfo = [
           [
             'nip' => '12010041',
@@ -25,7 +29,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'admin'
+            'role' => 'admin',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '12020042',
@@ -36,7 +42,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'admin'
+            'role' => 'admin',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '12020043',
@@ -47,7 +55,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13020046',
@@ -58,7 +68,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '12010043',
@@ -69,7 +81,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'leader'
+            'role' => 'leader',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '12010044',
@@ -80,7 +94,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'leader'
+            'role' => 'leader',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13010049',
@@ -91,7 +107,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13010050',
@@ -102,7 +120,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13010051',
@@ -113,7 +133,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13030052',
@@ -124,7 +146,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ],
           [
             'nip' => '13010053',
@@ -135,7 +159,9 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_alpha' => 0,
             'jumlah_hadir' => 1,
-            'role' => 'staff'
+            'role' => 'staff',
+            'created_at' => $dateNowArr['formatted'],
+            'updated_at' => $dateNowArr['formatted']
           ]
         ];
         UserInfo::insert($userInfo);
