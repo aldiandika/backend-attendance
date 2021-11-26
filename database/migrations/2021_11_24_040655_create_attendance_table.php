@@ -13,14 +13,14 @@ class CreateAttendanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendance', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('tanggal');
-            $table->string('bulan');
-            $table->string('tahun');
-            $table->timestampTz('jam_masuk', $precision=0);
+            $table->integer('tanggal');
+            $table->integer('bulan');
+            $table->integer('tahun');
+            $table->string('jam_masuk');
             $table->boolean('flag_masuk');
-            $table->timestampTz('jam_keluar', $precision=0);
+            $table->string('jam_keluar');
             $table->boolean('flag_keluar');
             $table->string('nip');
             $table->string('nama_pegawai');
@@ -38,6 +38,6 @@ class CreateAttendanceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attendance');
+        Schema::dropIfExists('attendances');
     }
 }
