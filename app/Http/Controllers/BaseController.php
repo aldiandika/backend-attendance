@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\UserInfo;
 use App\Models\Attendance;
+use App\Models\Permission;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -182,26 +183,86 @@ class BaseController extends Controller
       ->whereBetween('tanggal', [$fromDate, $toDate])
       ->count();
 
-      $alphaSum = ($dateNowArr['day'] - 1) - $attSum;
-
-      $requester = UserInfo::where('nip', $this->user->nip)
+      UserInfo::where('nip', $this->user->nip)
       ->update([
-        'jumlah_alpha' => $alphaSum,
         'jumlah_hadir' => $attSum
       ]);
 
-      return response()->json([
-        'success' => true,
-        'requester' => $checkedUser,
-        'message' => [
-          'attend' => $attSum,
-          'alpha' => $alphaSum
-        ]
-      ], Response::HTTP_OK);
     }
 
     // Input izin
-    // public function permission(Request $request){}
+    public function permission(Request $request){
+
+      // Check user 
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+      $namaPegawai = $checkedUser->nama_pegawai;
+      $jabatanFun = $checkedUser->jabatan_fungsional;
+      $jabatanStruk = $checkedUser->jabatan_struktural;
+      $jatahIzin = $checkedUser->jatah_izin;
+      $jumlahSakit = $checkedUser->jumlah_sakit;
+      $role = $checkedUser->role;
+
+      // Get time data
+      $dateNow = Carbon::now();
+      $dateNowArr = $dateNow->toArray();
+      $dayNow = $dateNowArr['day'];
+      $monthNow = $dateNowArr['month'];
+      $yearNow = $dateNowArr['year'];
+
+      // Cek jatah izin
+      if ($request->alasan == 'sakit'){
+        // Update jumlah sakit
+        $jumlahSakit = $jumlahSakit + 1;
+
+        // Update data user info
+        UserInfo::where('nip', $this->user->nip)
+        ->update([
+          'jumlah_sakit' => $jumlahSakit
+        ]);
+
+        $permObj = [
+          'nip' => $this->user->nip,
+          'nama_pegawai' => $namaPegawai,
+          'alasan' => 'sakit',
+          'tanggal_izin' => $dayNow,
+          'bulan_izin' => $monthNow,
+          'tahun_izin' => $yearNow,
+          'jabatan_fungsional' => $jabatanFun,
+          'jabatan_struktural' => $jabatanStruk,
+          'role' => $role
+        ];
+
+        $response = $permObj;
+
+      }else{
+        // Update database permissions
+        $permObj = [
+          'nip' => $this->user->nip,
+          'nama_pegawai' => $namaPegawai,
+          'alasan' => $request->alasan,
+          'tanggal_izin' => $dayNow,
+          'bulan_izin' => $monthNow,
+          'tahun_izin' => $yearNow,
+          'jabatan_fungsional' => $jabatanFun,
+          'jabatan_struktural' => $jabatanStruk,
+          'role' => $role
+        ];
+
+        $response = Permission::firstOrCreate($permObj);
+      }
+      
+      return response()->json([
+        'success' => true,
+        'requester' => $checkedUser,
+        'message' => $response
+      ], Response::HTTP_OK);
+    }
+
+    // Get semua pengajuan izin
+    public function getAllPerm(){
+
+    }
+
 
     // Update approval izin 
     // public function perm_update(Request $request){}
@@ -211,6 +272,8 @@ class BaseController extends Controller
 
     // Delete user
     // public function delete_user(Request $request){}
+
+    // Uji coba cek alpha
 
     
 

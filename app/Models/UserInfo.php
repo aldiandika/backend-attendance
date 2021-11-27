@@ -14,7 +14,6 @@ class UserInfo extends Model
         'nama_pegawai',
         'jabatan_fungsional',
         'jabatan_struktural',
-        'jatah_izin',
         'jumlah_izin',
         'jumlah_alpha',
         'jumlah_hadir',

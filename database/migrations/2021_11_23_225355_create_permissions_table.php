@@ -17,8 +17,10 @@ class CreatePermissionsTable extends Migration
             $table->id();
             $table->string('nip');
             $table->string('nama_pegawai');
-            $table->string('status_izin');
             $table->string('alasan');
+            $table->integer('tanggal_izin');
+            $table->integer('bulan_izin');
+            $table->integer('tahun_izin');
             $table->string('jabatan_fungsional');
             $table->string('jabatan_struktural');
             $table->string('role');

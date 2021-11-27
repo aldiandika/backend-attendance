@@ -19,8 +19,8 @@ class CreateUserInfoTable extends Migration
             $table->string('nama_pegawai');
             $table->string('jabatan_fungsional');
             $table->string('jabatan_struktural');
-            $table->integer('jatah_izin');
             $table->integer('jumlah_izin');
+            $table->integer('jumlah_sakit');
             $table->integer('jumlah_alpha');
             $table->integer('jumlah_hadir');
             $table->string('role');
