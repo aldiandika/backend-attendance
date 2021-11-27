@@ -259,23 +259,127 @@ class BaseController extends Controller
     }
 
     // Get semua pengajuan izin
-    public function getAllPerm(){
+    public function get_all_perm(){
+      // Check user 
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+      $role = $checkedUser->role;
+
+      // Return user info sesuai hirarki
+      if ($checkedUser->role == "admin"){
+        $response = Permission::all();
+      }else if ($checkedUser->role == "leader"){
+        $response = Permission::where('role', "staff")->where('jabatan_fungsional', $checkedUser->jabatan_fungsional)->get();
+      }else{
+        $response = Permission::where('nip', $this->user->nip)->get();
+      }
+
+      return response()->json([
+        'success' => true,
+        'requester' => $checkedUser,
+        'message' => $response
+      ], Response::HTTP_OK);
+    }
+
+
+    // Tambah user baru
+    public function add_user(Request $request){
+      // Validasi data
+      $data = $request->only(
+        'nip',
+        'nama_pegawai',
+        'jabatan_fungsional',
+        'jabatan_struktural',
+        'jumlah_izin',
+        'jumlah_alpha',
+        'jumlah_hadir',
+        'role'
+      );
+
+      $validator = Validator::make($data, [
+        'nip' => 'required|unique:users|string',
+        'nama_pegawai' => 'required|string',
+        'jabatan_fungsional' => 'required|string',
+        'jabatan_struktural' => 'required|string',
+        'jumlah_izin' => 'required|string',
+        'jumlah_alpha' => 'required|string',
+        'jumlah_hadir' => 'required|string',
+        'role' => 'required|string',
+      ]);
+
+      // Kirim response gagal
+      if ($validator->fails()){
+        return response()->json(['error' => $validator->messages()], 200);
+      }
+
+      // Check user 
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+      $role = $checkedUser->role;
+
+      if ($role == "admin"){
+        // Membuat user baru di database userInfo
+        $newUser = UserInfo::firstOrCreate([
+          'nip' => $request->nip,
+          'nama_pegawai' => $request->nama_pegawai,
+          'jabatan_fungsional' => $request->jabatan_fungsional,
+          'jabatan_struktural' => $request->jabatan_struktural,
+          'jumlah_izin' => 0,
+          'jumlah_alpha' => 0,
+          'jumlah_hadir' => 0,
+          'role'
+        ]);
+
+        return response()->json([
+          'success' => true,
+          'requester' => $checkedUser,
+          'message' => "data user berhasil ditambahkan"
+        ], Response::HTTP_OK);
+      }
+
+      return response()->json([
+        'success' => false,
+        'requester' => $checkedUser,
+        'message' => "akses ditolak"
+      ], Response::HTTP_OK);
+    }
+
+    // Delete user
+    public function delete_user(Request $request){
+      // Get data request
+      $data = [
+        'nip' => $request->nip,
+        'nama_pegawai' => $request->nama_pegawai,
+        'jabatan_fungsional' => $request->jabatan_fungsional,
+        'jabatan_struktural' => $request->jabatan_struktural,
+        'jumlah_izin' => $rquest->jumlah_izin,
+        'jumlah_alpha' => $request->jumlah_alpha,
+        'jumlah_hadir' => $request->jumlah_hadir,
+        'role' => $request->role
+      ];
+
+      // Check user 
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+      $role = $checkedUser->role;
+
+      if($role == "admin"){
+        UserInfo::where('nip', $data->nip)->delete();
+
+        return response()->json([
+          'success' => true,
+          'requester' => $checkedUser,
+          'message' => "data berhasil dihapus"
+        ], Response::HTTP_OK);
+      }
+
+      return response()->json([
+        'success' => false,
+        'requester' => $checkedUser,
+        'message' => "akses ditolak"
+      ], Response::HTTP_OK);
 
     }
 
 
-    // Update approval izin 
-    // public function perm_update(Request $request){}
-
-    // Tambah user baru
-    // public function add_user(Request $request){}
-
-    // Delete user
-    // public function delete_user(Request $request){}
+    // Download csv
 
     // Uji coba cek alpha
-
-    
-
-
 }
