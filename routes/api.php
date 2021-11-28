@@ -24,6 +24,7 @@ Route::group(['middleware' => ['jwt.verify']], function(){
   Route::get('get-user', [ApiController::class, 'get_user']);
   Route::get('user-info', [BaseController::class, 'user_info']);
   Route::get('attend', [BaseController::class, 'attendance']);
+  Route::get('get-attend', [BaseController::class, 'get_att']);
   Route::get('attend-sum', [BaseController::class, 'attendSum']);
   Route::post('input-perm', [BaseController::class, 'permission']);
   Route::post('perm', [BaseController::class, 'get_all_perm']);

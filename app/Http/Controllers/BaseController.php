@@ -65,14 +65,14 @@ class BaseController extends Controller
       // Get time data
       $dateNow = Carbon::now();
       $dateNowArr = $dateNow->toArray();
-      $hourNow = $dateNowArr['hour'];
+      // $hourNow = $dateNowArr['hour'];
       $dayNow = $dateNowArr['day'];
       $monthNow = $dateNowArr['month'];
       $yearNow = $dateNowArr['year'];
 
       // Debug
-      // $hourNow = 17;
-      // $dayNow = 25;
+      $hourNow = 8;
+      // $dayNow = 27;
       // $monthNow = 11;
       // $yearNow = 2021;
 
@@ -90,6 +90,8 @@ class BaseController extends Controller
       $last_check_in = 10;
       $first_check_out = 17;
       $last_check_out = 18;
+
+      $response = '';
 
       if (($hourNow >= $first_check_in) && ($hourNow <= $last_check_in)){
         $flagCheckIn = true;
@@ -140,11 +142,21 @@ class BaseController extends Controller
           ];
 
           Attendance::create($attObj);
+
+          $userInfo = UserInfo::where('nip', $this->user->nip)->first();
+          $jumlahHadir = $userInfo->jumlah_hadir;
+
+          UserInfo::where('nip', $this->user->nip)
+          ->update([
+            'jumlah_hadir' => $jumlahHadir + 1
+          ]);
+
           $response = "absen_masuk";
           $attend_code = 1;
         }
 
       }else{
+
         return response()->json([
           'success' => false,
           'requester' => $checkedUser,
@@ -158,6 +170,26 @@ class BaseController extends Controller
         'requester' => $checkedUser,
         'message' => $response,
         'attend_code' => $attend_code
+      ], Response::HTTP_OK);
+    }
+
+    public function get_att(){
+      // Check apakah role = admin
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+
+      // Return user info sesuai hirarki
+      if ($checkedUser->role == "admin"){
+        $response = Attendance::all();
+      }else if ($checkedUser->role == "leader"){
+        $response = Attendance::where('role', "staff")->where('jabatan_fungsional', $checkedUser->jabatan_fungsional)->get();
+      }else{
+        $response = $checkedUser;
+      }
+
+      return response()->json([
+        'success' => true,
+        'requester' => $checkedUser,
+        'message' => $response
       ], Response::HTTP_OK);
     }
 
@@ -209,7 +241,6 @@ class BaseController extends Controller
       $monthNow = $dateNowArr['month'];
       $yearNow = $dateNowArr['year'];
 
-      // Cek jatah izin
       if ($request->alasan == 'sakit'){
         // Update jumlah sakit
         $jumlahSakit = $jumlahSakit + 1;
@@ -380,6 +411,4 @@ class BaseController extends Controller
 
 
     // Download csv
-
-    // Uji coba cek alpha
 }

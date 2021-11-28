@@ -28,7 +28,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'admin',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -41,7 +41,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'admin',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -54,7 +54,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -67,7 +67,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -80,7 +80,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'leader',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -93,7 +93,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'leader',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -106,7 +106,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -119,7 +119,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -132,7 +132,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -145,7 +145,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
@@ -158,7 +158,7 @@ class UserInfoSeeder extends Seeder
             'jumlah_izin' => 0,
             'jumlah_sakit' => 0,
             'jumlah_alpha' => 0,
-            'jumlah_hadir' => 1,
+            'jumlah_hadir' => 0,
             'role' => 'staff',
             'created_at' => $dateNowArr['formatted'],
             'updated_at' => $dateNowArr['formatted']
