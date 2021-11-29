@@ -25,9 +25,12 @@ Route::group(['middleware' => ['jwt.verify']], function(){
   Route::get('user-info', [BaseController::class, 'user_info']);
   Route::get('attend', [BaseController::class, 'attendance']);
   Route::get('get-attend', [BaseController::class, 'get_att']);
-  Route::get('attend-sum', [BaseController::class, 'attendSum']);
+  Route::get('attend-sum', [BaseController::class, 'attend_sum']);
+  Route::get('attend-now', [BaseController::class, 'get_att_now']);
+  Route::get('perm-now', [BaseController::class, 'get_perm_now']);
   Route::post('input-perm', [BaseController::class, 'permission']);
   Route::post('perm', [BaseController::class, 'get_all_perm']);
+
 }
 
 );

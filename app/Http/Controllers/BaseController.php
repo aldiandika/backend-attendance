@@ -65,13 +65,13 @@ class BaseController extends Controller
       // Get time data
       $dateNow = Carbon::now();
       $dateNowArr = $dateNow->toArray();
-      // $hourNow = $dateNowArr['hour'];
+      $hourNow = $dateNowArr['hour'];
       $dayNow = $dateNowArr['day'];
       $monthNow = $dateNowArr['month'];
       $yearNow = $dateNowArr['year'];
 
       // Debug
-      $hourNow = 8;
+      // $hourNow = 17;
       // $dayNow = 27;
       // $monthNow = 11;
       // $yearNow = 2021;
@@ -117,7 +117,7 @@ class BaseController extends Controller
               'flag_keluar' => $flagCheckOut
             ]);
 
-            $response = "absen_pulang";
+            $response = $checkOutTime;
             $attend_code = 2;
 
           }else if (($checkUserAtt->flag_masuk)&&($checkUserAtt->flag_keluar)){
@@ -151,7 +151,7 @@ class BaseController extends Controller
             'jumlah_hadir' => $jumlahHadir + 1
           ]);
 
-          $response = "absen_masuk";
+          $response = $checkInTime;
           $attend_code = 1;
         }
 
@@ -222,7 +222,7 @@ class BaseController extends Controller
     }
 
     // Cek jumlah hadir
-    public function attendSum(){
+    public function attend_sum(){
       // Check user
       $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
 
@@ -339,6 +339,30 @@ class BaseController extends Controller
       ], Response::HTTP_OK);
     }
 
+     // Get data izin saat ini
+     public function get_perm_now(){
+      // Check user 
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+
+      // Get time data
+      $dateNow = Carbon::now();
+      $dateNowArr = $dateNow->toArray();
+      $dayNow = $dateNowArr['day'];
+      $monthNow = $dateNowArr['month'];
+      $yearNow = $dateNowArr['year'];
+
+      $permNow = Permission::where('nip', $this->user->nip)
+      ->where('tanggal', $dayNow)
+      ->where('bulan', $monthNow)
+      ->where('tahun', $yearNow)
+      ->first();
+
+      return response()->json([
+        'success' => true,
+        'requester' => $checkedUser,
+        'message' => $permNow,
+      ], Response::HTTP_OK);
+    }
 
     // Tambah user baru
     public function add_user(Request $request){
