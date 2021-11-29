@@ -173,6 +173,7 @@ class BaseController extends Controller
       ], Response::HTTP_OK);
     }
 
+    // Get data kehadiran
     public function get_att(){
       // Check apakah role = admin
       $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
@@ -183,13 +184,40 @@ class BaseController extends Controller
       }else if ($checkedUser->role == "leader"){
         $response = Attendance::where('role', "staff")->where('jabatan_fungsional', $checkedUser->jabatan_fungsional)->get();
       }else{
-        $response = $checkedUser;
+        $response = Attendance::where('nip', $this->user->nip)->get();
       }
+
+      $self = Attendance::where('nip', $this->user->nip)->get();
+      return response()->json([
+        'success' => true,
+        'requester' => $checkedUser,
+        'self_attendance' => $self,
+        'message' => $response,
+      ], Response::HTTP_OK);
+    }
+
+    // Get data kehadiran saat ini
+    public function get_att_now(){
+        // Check user 
+        $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+
+        // Get time data
+      $dateNow = Carbon::now();
+      $dateNowArr = $dateNow->toArray();
+      $dayNow = $dateNowArr['day'];
+      $monthNow = $dateNowArr['month'];
+      $yearNow = $dateNowArr['year'];
+
+      $attNow = Attendance::where('nip', $this->user->nip)
+      ->where('tanggal', $dayNow)
+      ->where('bulan', $monthNow)
+      ->where('tahun', $yearNow)
+      ->first();
 
       return response()->json([
         'success' => true,
         'requester' => $checkedUser,
-        'message' => $response
+        'message' => $attNow,
       ], Response::HTTP_OK);
     }
 
