@@ -469,13 +469,18 @@ class BaseController extends Controller
       $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
       
       $table = UserInfo::all();
-      $output='';
+      $output = implode(",", array('NIP', 'Nama Pegawai', 'Jabatan Fungsional', 'Jabatan Struktural', 'Jumlah Izin', 'Jumlah Alpha', 'Jumlah Hadir', "\n"));
+
       foreach ($table as $row) {
-          $output.=  implode(",",$row->toArray());
+        $output .=  implode(",", array($row['nip'], $row['nama_pegawai'], $row['jabatan_fungsional'], $row['jabatan_struktural'], $row['jumlah_izin'], $row['jumlah_alpha'], $row['jumlah_hadir'], "\n"));
       }
+
+      // foreach ($table as $row) {
+      //     $output.=  implode(",",$row->toArray());
+      // }
       $headers = array(
           'Content-Type' => 'text/csv',
-          'Content-Disposition' => 'attachment; filename="ExportFileName.csv"',
+          'Content-Disposition' => 'attachment; filename="FileRecordPegawai.csv"',
       );
       return FacadeResponse::make(rtrim($output, "\n"), 200, $headers);
     }
