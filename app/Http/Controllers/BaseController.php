@@ -352,9 +352,9 @@ class BaseController extends Controller
       $yearNow = $dateNowArr['year'];
 
       $permNow = Permission::where('nip', $this->user->nip)
-      ->where('tanggal', $dayNow)
-      ->where('bulan', $monthNow)
-      ->where('tahun', $yearNow)
+      ->where('tanggal_izin', $dayNow)
+      ->where('bulan_izin', $monthNow)
+      ->where('tahun_izin', $yearNow)
       ->first();
 
       return response()->json([
@@ -362,6 +362,7 @@ class BaseController extends Controller
         'requester' => $checkedUser,
         'message' => $permNow,
       ], Response::HTTP_OK);
+      
     }
 
     // Tambah user baru
