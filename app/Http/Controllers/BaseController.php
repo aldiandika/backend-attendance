@@ -11,6 +11,7 @@ use App\Models\Permission;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response as FacadeResponse;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
@@ -464,4 +465,19 @@ class BaseController extends Controller
 
 
     // Download csv
+    public function save_csv(){
+      $checkedUser = UserInfo::where('nip', $this->user->nip)->first();
+      
+      $table = UserInfo::all();
+      $output='';
+      foreach ($table as $row) {
+          $output.=  implode(",",$row->toArray());
+      }
+      $headers = array(
+          'Content-Type' => 'text/csv',
+          'Content-Disposition' => 'attachment; filename="ExportFileName.csv"',
+      );
+      return FacadeResponse::make(rtrim($output, "\n"), 200, $headers);
+    }
+
 }

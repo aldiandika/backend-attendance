@@ -30,7 +30,7 @@ Route::group(['middleware' => ['jwt.verify']], function(){
   Route::get('perm-now', [BaseController::class, 'get_perm_now']);
   Route::post('input-perm', [BaseController::class, 'permission']);
   Route::post('perm', [BaseController::class, 'get_all_perm']);
-
+  Route::get('csv', [BaseController::class, 'save_csv']);
 }
 
 );
