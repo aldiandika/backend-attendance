@@ -188,7 +188,7 @@ class BaseController extends Controller
         $response = Attendance::where('nip', $this->user->nip)->get();
       }
 
-      $self = Attendance::where('nip', $this->user->nip)->get();
+      $self = Attendance::where('nip', $this->user->nip)->orderByRaw('tanggal DESC')->get();
       return response()->json([
         'success' => true,
         'requester' => $checkedUser,
